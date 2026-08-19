@@ -1,0 +1,25 @@
+# Visual Studio
+.vs/
+.vscode/
+
+# Build output
+bin/
+obj/
+
+# User-specific files
+*.user
+*.suo
+
+# ASP.NET environment settings
+appsettings.Development.json
+DevPortfolio.API/appsettings.json
+# Secrets / local configuration
+.env
+.env.*
+
+# Logs
+*.log
+
+# OS files
+.DS_Store
+Thumbs.db

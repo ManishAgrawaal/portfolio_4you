@@ -1,0 +1,149 @@
+using DevPortfolio.API.Data;
+using DevPortfolio.API.Services;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
+using System.Text;
+
+var builder = WebApplication.CreateBuilder(args);
+
+
+// =========================
+// Controllers
+// =========================
+
+builder.Services.AddControllers();
+
+
+// =========================
+// Database
+// =========================
+
+builder.Services.AddDbContext<ApplicationDbContext>(options =>
+    options.UseSqlServer(
+        builder.Configuration.GetConnectionString("DefaultConnection")
+    ));
+
+
+// =========================
+// CORS
+// =========================
+
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowUI", policy =>
+    {
+        policy
+            .AllowAnyOrigin()
+            .AllowAnyHeader()
+            .AllowAnyMethod();
+    });
+});
+
+
+// =========================
+// Email Service
+// =========================
+
+builder.Services.AddScoped<IEmailService, EmailService>();
+
+
+// =========================
+// JWT Authentication
+// =========================
+
+var jwtKey = builder.Configuration["Jwt:Key"];
+
+if (string.IsNullOrEmpty(jwtKey))
+{
+    throw new InvalidOperationException(
+        "JWT Key is missing from appsettings.json"
+    );
+}
+
+builder.Services
+    .AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+    .AddJwtBearer(options =>
+    {
+        options.TokenValidationParameters = new TokenValidationParameters
+        {
+            ValidateIssuer = true,
+            ValidateAudience = true,
+            ValidateLifetime = true,
+            ValidateIssuerSigningKey = true,
+
+            ValidIssuer = builder.Configuration["Jwt:Issuer"],
+            ValidAudience = builder.Configuration["Jwt:Audience"],
+
+            IssuerSigningKey = new SymmetricSecurityKey(
+                Encoding.UTF8.GetBytes(jwtKey)
+            ),
+
+            ClockSkew = TimeSpan.Zero
+        };
+    });
+
+
+// =========================
+// Authorization
+// =========================
+
+builder.Services.AddAuthorization();
+
+
+// =========================
+// Swagger
+// =========================
+
+builder.Services.AddEndpointsApiExplorer();
+builder.Services.AddSwaggerGen();
+
+
+var app = builder.Build();
+
+
+// =========================
+// Swagger
+// =========================
+
+if (app.Environment.IsDevelopment())
+{
+    app.UseSwagger();
+    app.UseSwaggerUI();
+}
+
+
+// =========================
+// CORS
+// =========================
+
+app.UseCors("AllowUI");
+
+
+// =========================
+// HTTPS
+// =========================
+
+app.UseHttpsRedirection();
+
+
+// =========================
+// Authentication
+// IMPORTANT
+// Authentication must come
+// before Authorization
+// =========================
+
+app.UseAuthentication();
+
+app.UseAuthorization();
+
+
+// =========================
+// Controllers
+// =========================
+
+app.MapControllers();
+
+
+app.Run();
