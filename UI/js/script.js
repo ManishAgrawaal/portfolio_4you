@@ -2,7 +2,8 @@
 // API CONFIGURATION
 // =====================================================
 
-const API_BASE_URL = "http://localhost:5135/api";
+//const API_BASE_URL = "http://localhost:5135/api";
+const API_BASE_URL = "https://devportfolio-api-manish2026-hhbvdna5b5cpgne6.centralindia-01.azurewebsites.net/api";
 
 const CONTACT_API = `${API_BASE_URL}/Contact`;
 const PROJECT_API = `${API_BASE_URL}/Projects`;
