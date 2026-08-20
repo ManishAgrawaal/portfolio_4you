@@ -107,7 +107,7 @@ builder.Services.AddSwaggerGen(options =>
 
         Type = SecuritySchemeType.Http,
 
-        Scheme = "Bearer",
+        Scheme = "bearer",
 
         BearerFormat = "JWT",
 
