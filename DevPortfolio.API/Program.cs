@@ -57,7 +57,7 @@ var jwtKey = builder.Configuration["Jwt:Key"];
 if (string.IsNullOrEmpty(jwtKey))
 {
     throw new InvalidOperationException(
-        "JWT Key is missing from appsettings.json"
+        "JWT Key is missing from configuration."
     );
 }
 
@@ -104,13 +104,12 @@ var app = builder.Build();
 
 // =========================
 // Swagger
+// IMPORTANT:
+// Enabled for Azure Production also
 // =========================
 
-if (app.Environment.IsDevelopment())
-{
-    app.UseSwagger();
-    app.UseSwaggerUI();
-}
+app.UseSwagger();
+app.UseSwaggerUI();
 
 
 // =========================
@@ -129,12 +128,14 @@ app.UseHttpsRedirection();
 
 // =========================
 // Authentication
-// IMPORTANT
-// Authentication must come
-// before Authorization
 // =========================
 
 app.UseAuthentication();
+
+
+// =========================
+// Authorization
+// =========================
 
 app.UseAuthorization();
 
