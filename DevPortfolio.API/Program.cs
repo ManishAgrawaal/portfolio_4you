@@ -8,23 +8,20 @@ using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
 
-
 // =========================
 // Controllers
 // =========================
 
 builder.Services.AddControllers();
 
-
 // =========================
-// Database
+// Database - SQLite
 // =========================
 
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseSqlite(
         builder.Configuration.GetConnectionString("DefaultConnection")
     ));
-
 
 // =========================
 // CORS
@@ -41,13 +38,11 @@ builder.Services.AddCors(options =>
     });
 });
 
-
 // =========================
 // Email Service
 // =========================
 
 builder.Services.AddScoped<IEmailService, EmailService>();
-
 
 // =========================
 // JWT Authentication
@@ -84,13 +79,11 @@ builder.Services
         };
     });
 
-
 // =========================
 // Authorization
 // =========================
 
 builder.Services.AddAuthorization();
-
 
 // =========================
 // Swagger
@@ -117,7 +110,6 @@ builder.Services.AddSwaggerGen(options =>
             "Enter JWT token as: Bearer {your JWT token}"
     });
 
-
     // Apply JWT security globally
     options.AddSecurityRequirement(new OpenApiSecurityRequirement
     {
@@ -141,15 +133,27 @@ var app = builder.Build();
 
 
 // =========================
+// DATABASE MIGRATION
+// =========================
+// Creates SQLite database/tables
+// automatically on Render startup.
+
+using (var scope = app.Services.CreateScope())
+{
+    var db = scope.ServiceProvider
+        .GetRequiredService<ApplicationDbContext>();
+
+    db.Database.Migrate();
+}
+
+
+// =========================
 // Swagger
-// IMPORTANT:
-// Enabled for Azure Production also
 // =========================
 
 app.UseSwagger();
 
 app.UseSwaggerUI();
-
 
 // =========================
 // CORS
@@ -157,17 +161,18 @@ app.UseSwaggerUI();
 
 app.UseCors("AllowUI");
 
+// =========================
+// Static Files
+// =========================
+
+app.UseDefaultFiles();
+app.UseStaticFiles();
 
 // =========================
 // HTTPS
 // =========================
-app.UseDefaultFiles();
-app.UseStaticFiles();
 
-
-//==========================
 app.UseHttpsRedirection();
-
 
 // =========================
 // Authentication
@@ -175,19 +180,16 @@ app.UseHttpsRedirection();
 
 app.UseAuthentication();
 
-
 // =========================
 // Authorization
 // =========================
 
 app.UseAuthorization();
 
-
 // =========================
 // Controllers
 // =========================
 
 app.MapControllers();
-
 
 app.Run();
