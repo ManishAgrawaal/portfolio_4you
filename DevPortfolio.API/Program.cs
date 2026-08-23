@@ -143,7 +143,33 @@ using (var scope = app.Services.CreateScope())
     var db = scope.ServiceProvider
         .GetRequiredService<ApplicationDbContext>();
 
+    // Apply EF Core migrations first
     db.Database.Migrate();
+
+    // Seed initial portfolio project if the database is empty.
+    // This is useful for a fresh Render/SQLite deployment.
+    var hasProjects = db.Database
+        .SqlQueryRaw<int>("SELECT COUNT(*) AS \"Value\" FROM Projects")
+        .AsEnumerable()
+        .FirstOrDefault() > 0;
+
+    if (!hasProjects)
+    {
+        db.Database.ExecuteSqlRaw(@"
+            INSERT INTO Projects
+                (Title, Description, Technologies, ImageUrl, ProjectUrl, GithubUrl, CreatedAt)
+            VALUES
+                (
+                    'GraphLens – Wexa AI',
+                    'A recruiter, engineering manager or delivery lead wants to discover people who are relevant to a person based on shared technical skills and shared project experience.',
+                    'ASP.NET Core Razor Pages + C# + the official Neo4j .NET driver + CognodDB',
+                    '',
+                    '',
+                    '',
+                    datetime('now')
+                );
+        ");
+    }
 }
 
 
