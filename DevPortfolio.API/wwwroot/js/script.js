@@ -2,7 +2,7 @@
 // API CONFIGURATION
 // =====================================================
 
-const API_BASE_URL = "https://devportfolio-api-manish2026-hhbvdna5b5cpgne6.centralindia-01.azurewebsites.net/api";
+const API_BASE_URL = "/api";
 
 const CONTACT_API = `${API_BASE_URL}/Contact`;
 const PROJECT_API = `${API_BASE_URL}/Projects`;
@@ -515,9 +515,7 @@ async function loadProjects() {
 
                             <div class="project-content">
 
-                                <div class="project-number">
-                                    PROJECT
-                                </div>
+                               
 
                                 <h3 class="project-title">
 

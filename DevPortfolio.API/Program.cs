@@ -161,7 +161,11 @@ app.UseCors("AllowUI");
 // =========================
 // HTTPS
 // =========================
+app.UseDefaultFiles();
+app.UseStaticFiles();
 
+
+//==========================
 app.UseHttpsRedirection();
 
 
