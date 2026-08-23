@@ -216,7 +216,9 @@ namespace DevPortfolio.API.Services
                 emailSettings["ApiKey"]
                 ?? throw new Exception(
                     "EmailSettings:ApiKey is missing.");
-
+            Console.WriteLine(
+    $"RESEND KEY CHECK: Length={apiKey.Length}, StartsWithRe={apiKey.StartsWith("re_")}"
+);
             var fromAddress =
                 emailSettings["FromEmail"]
                 ?? throw new Exception(
