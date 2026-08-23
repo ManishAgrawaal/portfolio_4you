@@ -13,6 +13,7 @@ obj/
 # ASP.NET environment settings
 appsettings.Development.json
 DevPortfolio.API/appsettings.json
+
 # Secrets / local configuration
 .env
 .env.*
@@ -23,3 +24,11 @@ DevPortfolio.API/appsettings.json
 # OS files
 .DS_Store
 Thumbs.db
+
+# SQLite database
+*.db
+*.db-shm
+*.db-wal
+
+# Publish output
+**/publish/
