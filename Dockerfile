@@ -17,6 +17,3 @@ ENV ASPNETCORE_URLS=http://0.0.0.0:10000
 EXPOSE 10000
 
 ENTRYPOINT ["dotnet", "DevPortfolio.API.dll"]
-*.db
-*.db-shm
-*.db-wal
