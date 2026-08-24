@@ -17,6 +17,192 @@
 
 
     <style>
+        /* =========================================
+   EMAIL CONVERSATION MODAL
+========================================= */
+
+        .conversation-modal {
+            display: none;
+            position: fixed;
+            inset: 0;
+            z-index: 9999;
+            background: rgba(0, 0, 0, 0.75);
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+            .conversation-modal.show {
+                display: flex;
+            }
+
+        .conversation-box {
+            width: 100%;
+            max-width: 850px;
+            max-height: 90vh;
+            background: #ffffff;
+            border-radius: 14px;
+            overflow: hidden;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.35);
+            display: flex;
+            flex-direction: column;
+        }
+
+        .conversation-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 20px 24px;
+            border-bottom: 1px solid #e5e7eb;
+        }
+
+            .conversation-header h2 {
+                margin: 0;
+                font-size: 21px;
+            }
+
+        .conversation-email {
+            margin-top: 5px;
+            color: #6b7280;
+            font-size: 14px;
+        }
+
+        .conversation-close {
+            border: none;
+            background: transparent;
+            font-size: 30px;
+            cursor: pointer;
+            color: #6b7280;
+        }
+
+        .conversation-messages {
+            padding: 24px;
+            overflow-y: auto;
+            max-height: 430px;
+            background: #f8fafc;
+        }
+
+        .conversation-message {
+            padding: 16px;
+            margin-bottom: 14px;
+            border-radius: 10px;
+            background: #ffffff;
+            border: 1px solid #e5e7eb;
+        }
+
+            .conversation-message.admin {
+                background: #eef6ff;
+                border-left: 4px solid #2563eb;
+            }
+
+            .conversation-message.visitor {
+                border-left: 4px solid #10b981;
+            }
+
+        .conversation-message-header {
+            display: flex;
+            justify-content: space-between;
+            gap: 15px;
+            margin-bottom: 8px;
+        }
+
+        .conversation-message-name {
+            font-weight: 600;
+        }
+
+        .conversation-message-date {
+            font-size: 12px;
+            color: #6b7280;
+        }
+
+        .conversation-message-email {
+            font-size: 12px;
+            color: #6b7280;
+            margin-bottom: 10px;
+        }
+
+        .conversation-message-body {
+            white-space: pre-wrap;
+            line-height: 1.6;
+        }
+
+        .conversation-reply {
+            padding: 20px 24px;
+            border-top: 1px solid #e5e7eb;
+            background: #ffffff;
+        }
+
+            .conversation-reply label {
+                display: block;
+                font-weight: 600;
+                margin-bottom: 8px;
+            }
+
+            .conversation-reply textarea {
+                width: 100%;
+                resize: vertical;
+                min-height: 110px;
+                padding: 12px;
+                border: 1px solid #d1d5db;
+                border-radius: 8px;
+                font-family: inherit;
+                box-sizing: border-box;
+            }
+
+        .reply-actions {
+            display: flex;
+            justify-content: flex-end;
+            gap: 10px;
+            margin-top: 12px;
+        }
+
+        .cancel-reply-btn,
+        .send-reply-btn {
+            border: none;
+            padding: 10px 18px;
+            border-radius: 7px;
+            cursor: pointer;
+            font-weight: 600;
+        }
+
+        .cancel-reply-btn {
+            background: #e5e7eb;
+            color: #374151;
+        }
+
+        .send-reply-btn {
+            background: #2563eb;
+            color: white;
+        }
+
+            .send-reply-btn:disabled {
+                opacity: 0.6;
+                cursor: not-allowed;
+            }
+
+        .reply-success {
+            color: #15803d;
+            margin-top: 10px;
+        }
+
+        .reply-error {
+            color: #dc2626;
+            margin-top: 10px;
+        }
+
+        .view-btn {
+            border: none;
+            background: #2563eb;
+            color: white;
+            padding: 7px 12px;
+            border-radius: 6px;
+            cursor: pointer;
+            margin-right: 5px;
+        }
+
+            .view-btn:hover {
+                opacity: 0.9;
+            }
 
         * {
             box-sizing: border-box;
@@ -527,8 +713,8 @@
 
 
             <!-- =========================
-                 PAGE TITLE
-            ========================= -->
+         PAGE TITLE
+    ========================= -->
 
             <div class="page-title">
 
@@ -545,8 +731,8 @@
 
 
             <!-- =========================
-                 STATISTICS
-            ========================= -->
+         STATISTICS
+    ========================= -->
 
             <div class="stats">
 
@@ -601,8 +787,8 @@
 
 
             <!-- =========================
-                 CONTACT MESSAGES
-            ========================= -->
+         CONTACT MESSAGES
+    ========================= -->
 
             <section class="admin-section">
 
@@ -687,11 +873,91 @@
 
             </section>
 
+            <!-- EMAIL CONVERSATION MODAL -->
+            
+                <div id="conversationModal"
+                     class="conversation-modal">
 
+                    <div class="conversation-box">
+
+                        <div class="conversation-header">
+
+                            <div>
+                                <h2 id="conversationTitle">
+                                    Conversation
+                                </h2>
+
+                                <div id="conversationEmail"
+                                     class="conversation-email">
+                                </div>
+                            </div>
+
+                            <button type="button"
+                                    class="conversation-close"
+                                    onclick="closeConversation()">
+                                ×
+                            </button>
+
+                        </div>
+
+
+                        <div id="conversationMessages"
+                             class="conversation-messages">
+
+                            <div class="conversation-loading">
+                                Loading conversation...
+                            </div>
+
+                        </div>
+
+
+                        <div class="conversation-reply">
+
+                            <label for="replyMessage">
+                                Reply to Visitor
+                            </label>
+
+                            <textarea id="replyMessage"
+                                      rows="5"
+                                      placeholder="Write your reply...">
+            </textarea>
+
+
+                            <div id="replyFormMessage"></div>
+
+
+                            <div class="reply-actions">
+
+                                <button type="button"
+                                        class="cancel-reply-btn"
+                                        onclick="closeConversation()">
+
+                                    Close
+
+                                </button>
+
+
+                                <button type="button"
+                                        id="sendReplyButton"
+                                        class="send-reply-btn"
+                                        onclick="sendAdminReply()">
+
+                                    Send Reply
+
+                                </button>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+           
 
             <!-- =========================
-                 PORTFOLIO PROJECTS
-            ========================= -->
+         PORTFOLIO PROJECTS
+    ========================= -->
 
             <section class="admin-section">
 
@@ -1174,11 +1440,15 @@ const AUTH_API =
                 }
 
                 let messages = [];
+
                 try {
                     messages = responseText ? JSON.parse(responseText) : [];
-                } catch {
+                }
+
+                catch {
                     throw new Error("Contact API returned an invalid JSON response.");
                 }
+                visitorMessages = messages;
 
                 if (!Array.isArray(messages)) {
                     throw new Error("Contact API returned an unexpected response format.");
@@ -1196,25 +1466,37 @@ const AUTH_API =
                     return;
                 }
 
-                table.innerHTML = "";
-
+                
                 messages.forEach(function (item) {
+
                     const row = document.createElement("tr");
 
                     row.innerHTML = `
-                        <td>${item.id ?? ""}</td>
-                        <td>${escapeHtml(item.name ?? "")}</td>
-                        <td>${escapeHtml(item.email ?? "")}</td>
-                        <td>${escapeHtml(item.subject ?? "")}</td>
-                        <td class="message-cell">${escapeHtml(item.message ?? "")}</td>
-                        <td>${formatDate(item.createdAt)}</td>
-                        <td>
-                            <button
-                                class="delete-btn"
-                                onclick="deleteMessage(${Number(item.id)})">
-                                Delete
-                            </button>
-                        </td>`;
+        <td>${item.id ?? ""}</td>
+        <td>${escapeHtml(item.name ?? "")}</td>
+        <td>${escapeHtml(item.email ?? "")}</td>
+        <td>${escapeHtml(item.subject ?? "")}</td>
+        <td class="message-cell">
+            ${escapeHtml(item.message ?? "")}
+        </td>
+        <td>${formatDate(item.createdAt)}</td>
+
+        <td>
+            <button
+                type="button"
+                class="view-btn"
+                onclick="openConversation(${Number(item.id)})">
+                View
+            </button>
+
+            <button
+                type="button"
+                class="delete-btn"
+                onclick="deleteMessage(${Number(item.id)})">
+                Delete
+            </button>
+        </td>
+    `;
 
                     table.appendChild(row);
                 });
@@ -1232,6 +1514,369 @@ const AUTH_API =
             }
         }
 
+        //===================================================
+        //openConversation
+        //===================================================
+
+        async function openConversation(id) {
+
+            currentConversationId = id;
+
+            const modal = document.getElementById("conversationModal");
+
+            const messagesContainer =
+                document.getElementById("conversationMessages");
+
+            const replyMessage =
+                document.getElementById("replyMessage");
+
+            const replyFormMessage =
+                document.getElementById("replyFormMessage");
+
+            replyMessage.value = "";
+            replyFormMessage.innerHTML = "";
+
+            messagesContainer.innerHTML = `
+        <div class="conversation-loading">
+            Loading conversation...
+        </div>
+    `;
+
+            modal.classList.add("show");
+
+            try {
+
+                const contact = visitorMessages.find(
+                    x => Number(x.id) === Number(id)
+                );
+
+                if (!contact) {
+                    throw new Error("Visitor message not found.");
+                }
+
+                document.getElementById("conversationTitle").textContent =
+                    contact.subject || "Visitor Conversation";
+
+                document.getElementById("conversationEmail").textContent =
+                    contact.email || "";
+
+                const response = await fetch(
+                    `${CONTACT_API}/${id}/replies`,
+                    {
+                        method: "GET",
+                        headers: authHeaders(false),
+                        cache: "no-store"
+                    }
+                );
+
+                const responseText = await response.text();
+
+                if (response.status === 401 || response.status === 403) {
+                    handleUnauthorized(response.status);
+                    return;
+                }
+
+                if (!response.ok) {
+                    throw new Error(
+                        `Unable to load replies. HTTP ${response.status}`
+                    );
+                }
+
+                let replies = [];
+
+                try {
+                    replies = responseText
+                        ? JSON.parse(responseText)
+                        : [];
+                }
+                catch {
+                    throw new Error("Invalid replies response.");
+                }
+
+                renderConversation(contact, replies);
+
+            }
+            catch (error) {
+
+                console.error(
+                    "Conversation error:",
+                    error
+                );
+
+                messagesContainer.innerHTML = `
+            <div class="reply-error">
+                Unable to load conversation.<br>
+                ${escapeHtml(
+                    error.message || "Unknown error"
+                )}
+            </div>
+        `;
+            }
+        }
+
+        //===================================================
+        //renderConversation
+        //===================================================
+
+        function renderConversation(contact, replies) {
+
+            const container =
+                document.getElementById("conversationMessages");
+
+            let html = "";
+
+            // Original visitor message
+            html += `
+        <div class="conversation-message visitor">
+
+            <div class="conversation-message-header">
+
+                <span class="conversation-message-name">
+                    Visitor
+                </span>
+
+                <span class="conversation-message-date">
+                    ${formatDate(contact.createdAt)}
+                </span>
+
+            </div>
+
+            <div class="conversation-message-email">
+                ${escapeHtml(contact.email || "")}
+            </div>
+
+            <div class="conversation-message-body">
+
+                <strong>
+                    ${escapeHtml(contact.subject || "")}
+                </strong>
+
+                <br><br>
+
+                ${escapeHtml(contact.message ||  "")}
+
+            </div>
+
+        </div>
+    `;
+
+
+            // Replies
+            if (Array.isArray(replies) && replies.length > 0) {
+
+                replies.forEach(function(reply) {
+            
+                    const fromEmail =
+                        (reply.fromEmail || "").toLowerCase();
+
+                    const isAdmin =
+                        fromEmail ===
+                        "admin@manishtechnologysolution.com";
+
+                    html += `
+                <div class="conversation-message ${isAdmin ? "admin" : "visitor"
+                        }">
+
+                    <div class="conversation-message-header">
+
+                        <span class="conversation-message-name">
+                            ${isAdmin ? "Admin" : "Visitor"}
+                        </span>
+
+                        <span class="conversation-message-date">
+                            ${formatDate(reply.receivedAt)}
+                        </span>
+
+                    </div>
+
+                    <div class="conversation-message-email">
+                        ${escapeHtml(reply.fromEmail || "")}
+                    </div>
+
+                    <div class="conversation-message-body">
+                        ${escapeHtml(reply.message || "")}
+                    </div>
+
+                </div>
+            `;
+                });
+            }
+
+
+            container.innerHTML = html;
+
+            // Scroll to latest message
+            container.scrollTop = container.scrollHeight;
+        }
+
+        //===============================================
+        // sendAdminReply
+        //=================================================
+
+        async function sendAdminReply() {
+
+            const replyMessage =
+                document.getElementById("replyMessage");
+
+            const replyFormMessage =
+                document.getElementById("replyFormMessage");
+
+            const sendButton =
+                document.getElementById("sendReplyButton");
+
+            const message = replyMessage.value.trim();
+
+            // Validate message
+            if (!message) {
+
+                replyFormMessage.innerHTML = `
+            <div class="reply-error">
+                Please enter a reply message.
+            </div>
+        `;
+
+                return;
+            }
+
+            if (!currentConversationId) {
+
+                replyFormMessage.innerHTML = `
+            <div class="reply-error">
+                No conversation selected.
+            </div>
+        `;
+
+                return;
+            }
+
+            // Disable button while sending
+            sendButton.disabled = true;
+            sendButton.textContent = "Sending...";
+
+            replyFormMessage.innerHTML = "";
+
+            try {
+
+                const response = await fetch(
+                    `${CONTACT_API}/${currentConversationId}/reply`,
+                    {
+                        method: "POST",
+
+                        headers: authHeaders(true),
+
+                        body: JSON.stringify({
+                            message: message
+                        })
+                    }
+                );
+
+                const responseText =
+                    await response.text();
+
+                if (response.status === 401 ||
+                    response.status === 403) {
+
+                    handleUnauthorized(response.status);
+                    return;
+                }
+
+                if (!response.ok) {
+
+                    throw new Error(
+                        `Unable to send reply. HTTP ${response.status}: ${responseText || "Unknown error"}`
+                    );
+                }
+
+                let result = null;
+
+                try {
+
+                    result = responseText
+                        ? JSON.parse(responseText)
+                        : null;
+
+                }
+                catch {
+
+                    // Response is not JSON.
+                    // That's okay if API returned success.
+                }
+
+                console.log(
+                    "Admin reply sent successfully:",
+                    result
+                );
+
+                replyFormMessage.innerHTML = `
+            <div class="reply-success">
+                Reply sent successfully.
+            </div>
+        `;
+
+                // Clear textbox
+                replyMessage.value = "";
+
+                // Reload conversation so the new reply appears
+                await openConversation(currentConversationId);
+
+            }
+            catch (error) {
+
+                console.error(
+                    "Send admin reply error:",
+                    error
+                );
+
+                replyFormMessage.innerHTML = `
+            <div class="reply-error">
+                ${escapeHtml(
+                    error.message || "Unable to send reply."
+                )}
+            </div>
+        `;
+            }
+            finally {
+
+                sendButton.disabled = false;
+                sendButton.textContent = "Send Reply";
+            }
+        }
+
+        //============================================
+        //closeConversation()
+        //============================================
+
+        // ============================================
+        // CLOSE CONVERSATION MODAL
+        // ============================================
+
+        function closeConversation() {
+
+            const modal =
+                document.getElementById("conversationModal");
+
+            if (!modal) {
+                return;
+            }
+
+            modal.classList.remove("show");
+
+            currentConversationId = null;
+
+            const replyMessage =
+                document.getElementById("replyMessage");
+
+            if (replyMessage) {
+                replyMessage.value = "";
+            }
+
+            const replyFormMessage =
+                document.getElementById("replyFormMessage");
+
+            if (replyFormMessage) {
+                replyFormMessage.innerHTML = "";
+            }
+        }
 
         // ==================================================
         // DELETE MESSAGE
