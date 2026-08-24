@@ -32,7 +32,10 @@ builder.Services.AddCors(options =>
     options.AddPolicy("AllowUI", policy =>
     {
         policy
-            .AllowAnyOrigin()
+            .WithOrigins(
+                "https://manishtechnologysolution.com",
+                "https://www.manishtechnologysolution.com"
+            )
             .AllowAnyHeader()
             .AllowAnyMethod();
     });
@@ -178,9 +181,11 @@ using (var scope = app.Services.CreateScope())
 // Swagger
 // =========================
 
-app.UseSwagger();
-
-app.UseSwaggerUI();
+if (app.Environment.IsDevelopment())
+{
+    app.UseSwagger();
+    app.UseSwaggerUI();
+}
 
 // =========================
 // CORS
