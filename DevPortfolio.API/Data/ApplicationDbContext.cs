@@ -14,5 +14,6 @@ namespace DevPortfolio.API.Data
         public DbSet<ContactMessage> ContactMessages { get; set; }
         public DbSet<Project> Projects { get; set; }
         public DbSet<AdminUser> AdminUsers { get; set; }
+        public DbSet<EmailReply> EmailReplies { get; set; }
     }
 }

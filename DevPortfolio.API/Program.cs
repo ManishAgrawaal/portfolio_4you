@@ -84,6 +84,7 @@ builder.Services
 // =========================
 
 builder.Services.AddAuthorization();
+builder.Services.AddHttpClient();
 
 // =========================
 // Swagger
