@@ -5,6 +5,8 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using System.Text;
+using DevPortfolio.API.Models;
+using Microsoft.AspNetCore.Identity;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -151,6 +153,45 @@ using (var scope = app.Services.CreateScope())
     db.Database.Migrate();
 
     // Seed initial portfolio project if the database is empty.
+    // ==========================================
+    // ADMIN USER SEED
+    // ==========================================
+
+    var adminUsername =
+        builder.Configuration["Admin:Username"];
+
+    var adminPassword =
+        builder.Configuration["Admin:Password"];
+
+    if (!string.IsNullOrWhiteSpace(adminUsername) &&
+        !string.IsNullOrWhiteSpace(adminPassword))
+    {
+        var existingAdmin = db.AdminUsers
+            .FirstOrDefault(x =>
+                x.Username == adminUsername);
+
+        if (existingAdmin == null)
+        {
+            var admin = new AdminUser
+            {
+                Username = adminUsername,
+                Role = "Admin",
+                IsActive = true
+            };
+
+            var passwordHasher =
+                new PasswordHasher<AdminUser>();
+
+            admin.PasswordHash =
+                passwordHasher.HashPassword(
+                    admin,
+                    adminPassword);
+
+            db.AdminUsers.Add(admin);
+
+            db.SaveChanges();
+        }
+    }
     // This is useful for a fresh Render/SQLite deployment.
     var hasProjects = db.Database
         .SqlQueryRaw<int>("SELECT COUNT(*) AS \"Value\" FROM Projects")
