@@ -99,17 +99,6 @@ namespace DevPortfolio.API.Controllers
         }
 
 
-
-        // =====================================================
-        // CREATE / RESET ADMIN
-        // DEVELOPMENT SETUP
-        //
-        // POST: api/Auth/setup-admin
-        //
-        // Username: admin
-        // Password: Admin@123
-        // =====================================================
-
     
 
 
