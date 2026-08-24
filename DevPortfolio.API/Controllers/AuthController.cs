@@ -110,78 +110,7 @@ namespace DevPortfolio.API.Controllers
         // Password: Admin@123
         // =====================================================
 
-        [AllowAnonymous]
-        [HttpPost("setup-admin")]
-        public IActionResult SetupAdmin()
-        {
-            const string username = "admin";
-            const string password = "Admin@123";
-            const string role = "Admin";
-
-
-            var admin = _context.AdminUsers
-                .FirstOrDefault(x =>
-                    x.Username == username);
-
-
-            // ==========================================
-            // CREATE NEW ADMIN
-            // ==========================================
-
-            if (admin == null)
-            {
-                admin = new AdminUser
-                {
-                    Username = username,
-                    Role = role
-                };
-
-
-                admin.PasswordHash =
-                    _passwordHasher.HashPassword(
-                        admin,
-                        password
-                    );
-
-
-                _context.AdminUsers.Add(admin);
-
-                _context.SaveChanges();
-
-
-                return Ok(new
-                {
-                    message = "Admin created successfully.",
-                    username = username,
-                    password = password
-                });
-            }
-
-
-            // ==========================================
-            // RESET EXISTING ADMIN PASSWORD
-            // ==========================================
-
-            admin.Role = role;
-
-
-            admin.PasswordHash =
-                _passwordHasher.HashPassword(
-                    admin,
-                    password
-                );
-
-
-            _context.SaveChanges();
-
-
-            return Ok(new
-            {
-                message = "Admin password reset successfully.",
-                username = username,
-                password = password
-            });
-        }
+    
 
 
 
