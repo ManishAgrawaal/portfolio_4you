@@ -238,9 +238,12 @@ Configure sensitive values in: `Render → Service → Environment → Environme
   <img width="48%" height="250" alt="adminlogin" src="https://github.com/user-attachments/assets/43ae3a97-ead5-4c38-b981-55f8243670cf" />
 </p>
 
-Admin Dashboard <img width="500" height="250" alt="adminview" src="https://github.com/user-attachments/assets/587ce65d-2300-488b-bb61-37c8cde3aebd" />
-Conversation <img width="500" height="250" alt="contactview" src="https://github.com/user-attachments/assets/29d4cc52-7612-4d1d-95b8-13d9c2375b6e" />
-Swagger <img width="500" height="250" alt="swagger" src="https://github.com/user-attachments/assets/8092b451-fa77-4c79-8f4f-f5a20b6c4816" />
+<p align="center">
+  <b>Admin Dashboard</b> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <b>Conversation</b> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <b>Swagger</b> <br/>
+  <img width="32%" height="250" alt="adminview" src="https://github.com/user-attachments/assets/587ce65d-2300-488b-bb61-37c8cde3aebd" />
+  <img width="32%" height="250" alt="contactview" src="https://github.com/user-attachments/assets/29d4cc52-7612-4d1d-95b8-13d9c2375b6e" />
+  <img width="32%" height="250" alt="swagger" src="https://github.com/user-attachments/assets/8092b451-fa77-4c79-8f4f-f5a20b6c4816" />
+</p>
 
 
 ## 24. Skills Demonstrated
