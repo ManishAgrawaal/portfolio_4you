@@ -234,10 +234,9 @@ Configure sensitive values in: `Render → Service → Environment → Environme
 ## 23. Screenshots
 
 | Portfolio Homepage | Admin Login |
-| :---: | :---: |
 | ![Portfolio Homepage](<img width="1917" height="980" alt="homepage" src="https://github.com/user-attachments/assets/3f5c893d-17d3-4acc-a175-60997b2fce49" />
-) | ![Admin Login](<img width="1919" height="994" alt="adminlogin" src="https://github.com/user-attachments/assets/43ae3a97-ead5-4c38-b981-55f8243670cf" />
-) |
+| ![Admin Login](<img width="1919" height="994" alt="adminlogin" src="https://github.com/user-attachments/assets/43ae3a97-ead5-4c38-b981-55f8243670cf" />
+
 
 | Admin Dashboard | Conversation View | Swagger |
 | :---: | :---: | :---: |
