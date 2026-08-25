@@ -1,64 +1,69 @@
-# DevPortfolio.API --- Project Reference
+<div align="center">
 
-## Project Overview
+<h1>
+  <a href="https://github.com/ManishAgrawaal/portfolio_4you" style="text-decoration: none; color: inherit;">
+    🚀 DevPortfolio.API
+  </a>
+</h1>
 
-DevPortfolio.API is a full-stack personal portfolio application built
-with **ASP.NET Core Web API, C#, Entity Framework Core, SQLite, HTML,
-CSS and JavaScript**.
+**Personal Portfolio & Admin Communication System**
 
-The application provides:
+<p align="center">
+  DevPortfolio.API is a full-stack personal portfolio application built with <br>
+  <b>ASP.NET Core Web API + C# + Entity Framework Core + SQLite + JWT Authentication + Resend.</b>
+</p>
 
--   Public portfolio UI
--   Visitor contact form
--   Secure Admin Dashboard
--   JWT authentication and role-based authorization
--   SQLite persistence
--   Resend email integration
--   Resend webhook integration for visitor replies
--   Two-way visitor/admin conversation
--   Project management
--   Render production deployment
--   Environment-based production secrets
+[![Deployed on Render](https://img.shields.io/badge/Deployed-Render-46E3B7?style=for-the-badge&logo=render)](#)-
+[![.NET 8](https://img.shields.io/badge/.NET-8.0-512BD4?style=for-the-badge&logo=dotnet)](#)-
+[![SQLite](https://img.shields.io/badge/SQLite-003B57?style=for-the-badge&logo=sqlite)](#)
 
-------------------------------------------------------------------------
+</div>
 
-## Technology Stack
+---
 
-### Backend
+It is designed as more than a static portfolio: visitors can submit contact messages, administrators can manage portfolio content and reply to visitors, and visitor replies can be captured back into the application through a Resend webhook.
 
--   C#
--   .NET 8 / ASP.NET Core Web API
--   Entity Framework Core
--   SQLite
--   JWT Bearer Authentication
--   Role-based Authorization
--   ASP.NET Core PasswordHasher
--   Swagger / OpenAPI
--   HttpClient
--   Dependency Injection
+The application is deployed to Render and connected to a custom domain.
 
-### Frontend
+---
 
--   HTML5
--   CSS3
--   JavaScript
--   Fetch API
--   Responsive UI
--   Admin Dashboard
--   Conversation Modal
+## 1. Use Case
 
-### External Services / DevOps
+### Problem
+A personal portfolio normally provides only static information about a developer. This project extends that idea into a small production-style application.
 
--   Resend --- email delivery and inbound webhook
--   GitHub --- source control
--   Render --- production hosting and deployment
--   Custom domain --- `manishtechnologysolution.com`
+### The Solution
+**A visitor can:**
+- 🔍 Explore the portfolio
+- 💻 View projects
+- ✉️ Submit a contact message
+- 📥 Receive an email response
+- 🔄 Continue the conversation by replying to email
 
-------------------------------------------------------------------------
+**The administrator can:**
+- 🔒 Securely log in
+- 📬 View visitor messages
+- 📖 Open complete conversations
+- ✍️ Reply directly from the Admin Dashboard
+- 🛠️ Manage portfolio projects
+- 🪝 Receive visitor email replies through a webhook
 
-# Architecture
+> **Example flow:** 
+> *"A visitor sends a message from my portfolio. I receive the notification, reply from the Admin Dashboard, and if the visitor replies to that email, the reply appears back inside the Admin Dashboard."*
 
-``` text
+## 2. Why a Backend API?
+
+The portfolio contains data and operations that should not be handled only in browser JavaScript. The backend is responsible for:
+
+- Authentication & Authorization
+- Database operations
+- Contact message persistence
+- Project management
+- Email delivery & reply processing
+- Webhook handling
+- Production configuration
+## 3. Architecture
+  
                     VISITOR
                        |
                        v
@@ -95,1110 +100,242 @@ The application provides:
                                              |
                                              v
                                       Admin Dashboard
-```
-
-------------------------------------------------------------------------
-
-# Project Structure
-
-``` text
-DevPortfolio.API/
-|
-+-- Connected Services/
-+-- Dependencies/
-+-- Properties/
-|
-+-- wwwroot/
-|   +-- css/
-|   +-- images/
-|   +-- js/
-|   |   +-- f.js
-|   +-- Resume/
-|   +-- admin.html
-|   +-- index.html
-|
-+-- Controllers/
-|   +-- AuthController.cs
-|   +-- ContactController.cs
-|   +-- ProjectsController.cs
-|   +-- WebhookController.cs
-|
-+-- Data/
-|   +-- ApplicationDbContext.cs
-|
-+-- Migrations/
-|
-+-- Models/
-|   +-- AdminUser.cs
-|   +-- ContactMessage.cs
-|   +-- ContactRequest.cs
-|   +-- EmailReply.cs
-|   +-- LoginRequest.cs
-|   +-- LoginResponse.cs
-|   +-- Project.cs
-|
-+-- publish/
-|
-+-- services/
-|   +-- EmailService.cs
-|   +-- IEmailService.cs
-|
-+-- appsettings.json
-+-- Program.cs
-+-- DevPortfolio.API.csproj
-```
 
-------------------------------------------------------------------------
+## 4. Main Application Flow
 
-# Folder Responsibilities
+<details>
+<summary><b>👤 Visitor Contact Flow</b></summary>
+</details>
 
-## Controllers
+<details>
+<summary><b>🛡️ Admin Reply Flow</b></summary>
+</details>
 
-### AuthController.cs
+<details>
+<summary><b>🔄 Visitor Reply Flow</b></summary>
+</details>
 
-Handles:
+## 5. Technology Stack
 
--   Admin login
--   Credential validation
--   JWT generation
--   Authentication-related operations
+### Backend
+- **.NET 8 & C#** (ASP.NET Core Web API)
+- **Entity Framework Core**
+- **SQLite**
+- **JWT Bearer Authentication**
+- **Dependency Injection** & **REST APIs**
+- **Swagger / OpenAPI**
 
-### ContactController.cs
+### Frontend
+- **HTML5, CSS3, JavaScript**
+- **Fetch API** & **DOM manipulation**
+- **Responsive UI**
+- **Admin Dashboard** (Modal-based conversation UI)
 
-Handles:
+### Email & Cloud
+- **Resend API** & **Resend Webhooks**
+- **GitHub** (Version Control)
+- **Render** (Hosting & Custom Domain)
 
--   Visitor contact messages
--   Admin message management
--   Conversation history
--   Admin replies
--   Protected contact operations
+## 6. Project Structure
 
-Important conversation endpoint:
+## 7. Controllers
 
-``` http
-GET /api/Contact/{id}/replies
-```
+| Controller | Responsibility | Flow |
+|---|---|---|
+| `AuthController` | Admin login, Credential validation, JWT generation. | `User+Pass ➔ Validate ➔ Generate JWT` |
+| `ContactController` | Receiving contacts, saving messages, reading convos, sending replies. | `Save message ➔ EmailService ➔ DB` |
+| `ProjectsController`| Reading, adding, editing, and deleting portfolio projects. | CRUD Operations |
+| `WebhookController` | Processing inbound email events from Resend (Two-way comms). | `Resend ➔ Validate ➔ Save Reply` |
 
-Admin reply endpoint:
+## 8. Data Model
 
-``` http
-POST /api/Contact/{id}/reply
-```
+The main application entities are:
+- `AdminUser`
+- `ContactMessage`
+- `EmailReply`
+- `Project`
 
-### ProjectsController.cs
+**Contact Relationship:**
 
-Handles portfolio project operations.
+*A single visitor conversation can therefore contain multiple replies (Visitor Msg ➔ Admin Reply ➔ Visitor Reply).*
 
-### WebhookController.cs
+## 9. Database
 
-Handles:
+The application currently uses **SQLite**.
+- **Connection:** `Data Source=DevPortfolio.db`
+- **ORM:** Entity Framework Core (Database access, entity mapping, migrations, CRUD)
 
--   Resend webhook events
--   Visitor email replies
--   Matching replies to existing conversations
--   Saving inbound replies
+> **Local database inspection:** Use *DB Browser for SQLite* for viewing tables, checking records, inspecting conversations, and debugging. *Note: The local SQLite database and production database should be treated as separate environments.*
 
-------------------------------------------------------------------------
+## 10. Authentication & Authorization
 
-# Data Layer
+The Admin Dashboard is protected using **JWT Bearer Authentication**.
 
-## ApplicationDbContext.cs
+1. **Login:** `POST /api/Auth/login` validates credentials and returns a JWT.
+2. **Protected Requests:** Frontend sends the token in the header:
+3. **Authorization:** Endpoints use rules such as `[Authorize(Roles = "Admin")]`.
 
-Entity Framework Core database context.
+*Security principle: Secrets are not intended to live in source code. Production secrets are configured through environment variables.*
 
-Main entities:
+## 11. Admin User Seeding
 
-``` text
-AdminUsers
-ContactMessages
-EmailReplies
-Projects
-```
+The production application can create the initial admin user when no admin exists, using production configuration.
 
-Migrations are used to maintain the SQLite database schema.
+*The actual production password should never be committed to GitHub.*
 
-------------------------------------------------------------------------
+## 12. Email Integration with Resend
 
-# Models
+The project uses Resend for email delivery.
 
-## AdminUser.cs
+- **Admin Notification:** `Visitor ➔ ContactController ➔ EmailService ➔ Resend ➔ Admin`
+- **Admin Reply:** `Admin Dashboard ➔ ContactController ➔ EmailService ➔ Resend ➔ Visitor`
+- **Visitor Reply:** `Visitor ➔ Resend ➔ WebhookController ➔ DB ➔ Admin Dashboard`
 
-Represents the administrator.
+## 13. Two-Way Conversation System
 
-Important properties:
+The most important feature of this project is that email communication is connected to the database. Instead of a dead-end contact form, the application supports a lightweight conversation system:
 
-``` text
-Username
-PasswordHash
-Role
-IsActive
-```
 
-Passwords are stored as hashes, not plaintext.
+## 14. CORS
 
-## ContactMessage.cs
+The production API allows requests from the portfolio domains:
+- `https://manishtechnologysolution.com`
+- `https://www.manishtechnologysolution.com`
 
-Represents a visitor's original contact message.
+*The production configuration avoids unrestricted CORS (e.g., `.AllowAnyOrigin()`) when a specific frontend origin is known.*
 
-Typical data:
+## 15. Configuration & Secrets
 
-``` text
-Id
-Name
-Email
-Subject
-Message
-CreatedAt
-```
+Local application configuration can contain non-sensitive defaults. Sensitive production values should be supplied through environment variables.
 
-## EmailReply.cs
+**ASP.NET Core uses `__` to represent nested configuration:**
+- `ConnectionStrings__DefaultConnection`
+- `EmailSettings__ApiKey`
+- `Jwt__Key`
+- `Admin__Password`
 
-Stores inbound/outbound conversation reply information.
+⚠️ **Never commit:** API keys, JWT signing keys, Passwords, or Access tokens.
 
-Typical data:
+## 16. Swagger / OpenAPI
 
-``` text
-ContactMessageId
-FromEmail
-ToEmail
-Subject
-Message
-ReceivedAt
-ResendEmailId
-MessageId
-```
+Swagger is available for API development and local testing.
+- **Flow:** `Run API ➔ Open Swagger ➔ Authenticate ➔ Test Endpoints ➔ Verify DB/Emails`
+- *Swagger should be treated as a development/testing tool and disabled/secured in production.*
 
-## ContactRequest.cs
+## 17. Local Development
 
-Request DTO used by the visitor contact form.
+**Prerequisites:**
+- .NET 8 SDK
+- Visual Studio or VS Code
+- Git
 
-## LoginRequest.cs
+**Setup:**
 
-Request DTO used for administrator login.
+## 18. Local Verification
 
-## LoginResponse.cs
+- [ ] **Website:** Homepage, CSS, JS, Images load. Contact form works.
+- [ ] **Authentication:** Admin login works. Invalid credentials rejected. JWT generated.
+- [ ] **Admin Dashboard:** Messages appear. Conversation modal opens. Replies can be sent. Projects managed.
+- [ ] **Email:** Visitor message reaches admin. Admin reply reaches visitor. Webhook catches visitor reply.
+- [ ] **Database:** Messages, Replies, and Projects stored. Migrations applied.
 
-Response DTO returned after successful authentication.
+## 19. Render Deployment
 
-## Project.cs
+The application is hosted on Render, which provides auto-deployments, environment variables, logs, and custom domain routing.
+- **Production domain:** `https://manishtechnologysolution.com`
+- **Admin:** `https://manishtechnologysolution.com/admin.html`
 
-Represents portfolio project data.
+## 20. Render Environment Variables
 
-------------------------------------------------------------------------
+Configure sensitive values in: `Render → Service → Environment → Environment Variables`.
+*After modifying: Save ➔ Rebuild/Deploy ➔ Check Logs ➔ Test.*
 
-# Services
+## 21. Production Testing Checklist
 
-## IEmailService.cs
+- [ ] Render service is Live
+- [ ] Custom domain opens successfully
+- [ ] Admin login works (invalid is rejected)
+- [ ] Contact form works & Visitor message is stored
+- [ ] Emails successfully sent and received (both directions)
+- [ ] Webhook triggers correctly on visitor reply
+- [ ] Project CRUD works
+- [ ] CORS is restricted to production domains
+- [ ] Secrets are stored **only** in Render, not GitHub
 
-Defines the email-service contract.
+## 22. Git Workflow
 
-The controller depends on the abstraction rather than directly depending
-on the provider.
+## 23. Screenshots
+<p align="center">
+  <b>Portfolio Homepage</b> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <b>Admin Login</b> <br/>
+  <img width="48%" height="250" alt="homepage" src="https://github.com/user-attachments/assets/3f5c893d-17d3-4acc-a175-60997b2fce49" />
+  <img width="48%" height="250" alt="adminlogin" src="https://github.com/user-attachments/assets/43ae3a97-ead5-4c38-b981-55f8243670cf" />
+</p>
 
-``` text
-Controller
-    |
-    v
-IEmailService
-    |
-    v
-EmailService
-    |
-    v
-Resend
-```
+<p align="center">
+  <b>Admin Dashboard</b> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <b>Conversation</b> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <b>Swagger</b> <br/>
+  <img width="32%" height="250" alt="adminview" src="https://github.com/user-attachments/assets/587ce65d-2300-488b-bb61-37c8cde3aebd" />
+  <img width="32%" height="250" alt="contactview" src="https://github.com/user-attachments/assets/29d4cc52-7612-4d1d-95b8-13d9c2375b6e" />
+  <img width="32%" height="250" alt="swagger" src="https://github.com/user-attachments/assets/8092b451-fa77-4c79-8f4f-f5a20b6c4816" />
+</p>
 
-## EmailService.cs
 
-Responsible for:
+## 24. Skills Demonstrated
 
--   Sending emails
--   Admin-to-visitor replies
--   Email configuration
--   Reply context
--   Resend API communication
+- **Backend:** C#, .NET 8, Web API, REST API design, EF Core, SQLite, Migrations, DI, JWT, Password Hashing.
+- **Frontend:** HTML5, CSS3, JavaScript, Fetch API, DOM manipulation, Responsive design, Modals.
+- **Cloud/DevOps:** Git/GitHub, Render, Environment variables, Custom domains, Production logging.
+- **Integrations:** Resend API (Email delivery), Webhooks.
 
-------------------------------------------------------------------------
+## 25. What This Project Demonstrates
 
-# Database
+This project demonstrates the complete lifecycle of a modern small web application:
 
-Current database:
 
-``` text
-SQLite
-```
+## 26. Future Improvements
 
-Connection:
+- ⭐ Migrate SQLite to PostgreSQL for stronger production persistence.
+- 🧪 Add unit and integration tests.
+- 🛡️ Add API rate limiting.
+- 🔏 Add webhook signature verification.
+- 📊 Add structured logging.
+- ❤️ Add health-check monitoring.
+- 📄 Add pagination for large conversation lists.
+- 🔔 Add unread message indicators.
+- 📬 Add email delivery status tracking.
 
-``` text
-Data Source=DevPortfolio.db
-```
+## 27. Learning / Reference Order
 
-Entity Framework Core is used for database operations.
+To understand the codebase, review the files in this order:
+1. `wwwroot/index.html`
+2. `wwwroot/css` + `wwwroot/js`
+3. `Controllers`
+4. `Models`
+5. `ApplicationDbContext`
+6. `services/EmailService.cs`
+7. JWT Authentication logic
+8. Admin Dashboard
+9. Resend Integration
+10. `WebhookController`
+11. `Program.cs`
+12. `appsettings` / Environment Variables
+13. GitHub Actions/Commits
+14. Render Settings
 
-At startup, migrations are applied with:
+## 28. Links
 
-``` csharp
-db.Database.Migrate();
-```
+- **Source Code:** [GitHub Repository](https://github.com/ManishAgrawaal/portfolio_4you)
+- **Live Application:** [manishtechnologysolution.com](https://manishtechnologysolution.com)
 
-Useful tables:
+## 29. Author
 
-``` text
-AdminUsers
-ContactMessages
-EmailReplies
-Projects
-```
+**Manish Kumar**  
+*.NET / Full Stack Developer*  
+Core technologies: *C#, .NET, ASP.NET Core, EF Core, REST APIs, JWT, SQLite, HTML, CSS, JavaScript, Resend, Git, GitHub, Render*
 
-------------------------------------------------------------------------
+---
 
-# Database Relationship
+<p align="center">
+  🚀 <b>Built with ASP.NET Core, C# and practical production engineering.</b><br>
+  <i>Portfolio • API • Authentication • Database • Email • Webhooks • Deployment</i>
+</p>
 
-The conversation model is:
-
-``` text
-ContactMessage
-      |
-      | 1 : Many
-      v
-EmailReply
-```
-
-Example:
-
-``` text
-ContactMessage #10
-|
-+-- Original visitor message
-|
-+-- EmailReply #1
-|      +-- Admin reply
-|
-+-- EmailReply #2
-|      +-- Visitor reply
-|
-+-- EmailReply #3
-       +-- Admin reply
-```
-
-This allows the Admin Dashboard to display the full conversation.
-
-------------------------------------------------------------------------
-
-# Authentication and Authorization
-
-The admin system uses:
-
-``` text
-JWT Bearer Authentication
-```
-
-Flow:
-
-``` text
-Admin Login
-    |
-    v
-POST /api/Auth/login
-    |
-    v
-Validate credentials
-    |
-    v
-Verify password hash
-    |
-    v
-Generate JWT
-    |
-    v
-Frontend receives token
-    |
-    v
-Protected API requests
-```
-
-Protected APIs use:
-
-``` csharp
-[Authorize(Roles = "Admin")]
-```
-
-------------------------------------------------------------------------
-
-# Admin User Provisioning
-
-The production application seeds the initial admin during startup when
-the account does not already exist.
-
-Configuration:
-
-``` text
-Admin:Username
-Admin:Password
-```
-
-Render environment-variable names:
-
-``` text
-Admin__Username
-Admin__Password
-```
-
-Logic:
-
-``` text
-Admin exists?
-   |
-   +-- YES --> keep existing admin
-   |
-   +-- NO ---> create admin
-                 |
-                 +--> hash password
-                 |
-                 +--> save AdminUser
-```
-
-The password is hashed using ASP.NET Core's `PasswordHasher<AdminUser>`.
-
-------------------------------------------------------------------------
-
-# Public UI
-
-Main page:
-
-``` text
-wwwroot/index.html
-```
-
-Features:
-
--   Portfolio introduction
--   Projects
--   Technologies
--   Contact form
--   Responsive UI
-
-Contact flow:
-
-``` text
-Visitor
-   |
-   v
-Contact Form
-   |
-   v
-JavaScript Fetch
-   |
-   v
-POST /api/Contact
-   |
-   v
-ContactMessages
-   |
-   v
-Email notification
-```
-
-------------------------------------------------------------------------
-
-# Admin Dashboard
-
-Main page:
-
-``` text
-wwwroot/admin.html
-```
-
-Features:
-
--   Admin login
--   Visitor message list
--   Message statistics
--   View conversation
--   Delete message
--   Refresh messages
--   Admin reply
--   Conversation modal
-
-Conversation UI displays:
-
--   Visitor email
--   Admin messages
--   Visitor messages
--   Subject
--   Date/time
--   Reply textarea
--   Close button
--   Send Reply button
-
-------------------------------------------------------------------------
-
-# Admin → Visitor Email Flow
-
-``` text
-Admin Dashboard
-      |
-      v
-Write Reply
-      |
-      v
-POST /api/Contact/{id}/reply
-      |
-      v
-ContactController
-      |
-      v
-IEmailService
-      |
-      v
-EmailService
-      |
-      v
-Resend API
-      |
-      v
-Visitor Email
-```
-
-------------------------------------------------------------------------
-
-# Visitor → Admin Email Flow
-
-``` text
-Visitor
-   |
-   v
-Replies to email
-   |
-   v
-Resend
-   |
-   v
-Webhook
-   |
-   v
-POST /api/Webhook/resend
-   |
-   v
-WebhookController
-   |
-   v
-Find related ContactMessage
-   |
-   v
-Save EmailReply
-   |
-   v
-Admin opens conversation
-   |
-   v
-Visitor reply appears
-```
-
-This creates a two-way communication system.
-
-------------------------------------------------------------------------
-
-# Resend Integration
-
-Resend is used for outbound email and inbound webhook processing.
-
-## Outbound
-
-``` text
-ASP.NET Core
-     |
-     v
-Resend API
-     |
-     v
-Visitor / recipient
-```
-
-## Inbound
-
-``` text
-Visitor reply
-     |
-     v
-Resend
-     |
-     v
-Webhook
-     |
-     v
-ASP.NET Core
-     |
-     v
-EmailReplies
-```
-
-------------------------------------------------------------------------
-
-# Configuration and Secrets
-
-Production secrets must not be committed to GitHub.
-
-Examples of sensitive values:
-
-``` text
-Resend API key
-JWT signing key
-Admin password
-SMTP credentials
-Other access tokens
-```
-
-Use environment variables / local secret storage instead.
-
-## Render Environment Variables
-
-Nested ASP.NET Core configuration uses double underscores:
-
-``` text
-ConnectionStrings__DefaultConnection
-
-EmailSettings__ApiKey
-EmailSettings__FromEmail
-EmailSettings__Password
-EmailSettings__Port
-EmailSettings__SmtpServer
-EmailSettings__ToEmail
-EmailSettings__Username
-
-Jwt__Key
-Jwt__Issuer
-Jwt__Audience
-Jwt__ExpirationMinutes
-
-Admin__Username
-Admin__Password
-```
-
-Do not publish the actual values.
-
-------------------------------------------------------------------------
-
-# CORS
-
-Production CORS is restricted to the portfolio domains:
-
-``` text
-https://manishtechnologysolution.com
-https://www.manishtechnologysolution.com
-```
-
-Avoid unrestricted production CORS such as:
-
-``` csharp
-.AllowAnyOrigin()
-```
-
-------------------------------------------------------------------------
-
-# Swagger
-
-Swagger/OpenAPI is intended for development and local API testing.
-
-``` text
-Development -> Swagger enabled
-Production  -> Swagger disabled
-```
-
-This keeps local development convenient while reducing unnecessary
-production exposure.
-
-------------------------------------------------------------------------
-
-# Local Development
-
-## Prerequisites
-
--   .NET SDK
--   Visual Studio or VS Code
--   Git
--   Browser
--   Optional: DB Browser for SQLite
-
-## Step 1 --- Clone
-
-``` bash
-git clone <repository-url>
-cd portfolio_4you
-```
-
-## Step 2 --- Open
-
-Open the solution in Visual Studio:
-
-``` text
-DevPortfolio.API.sln
-```
-
-## Step 3 --- Restore
-
-``` bash
-dotnet restore
-```
-
-## Step 4 --- Build
-
-``` bash
-dotnet build
-```
-
-Expected:
-
-``` text
-Build succeeded
-```
-
-## Step 5 --- Run
-
-Use Visual Studio / IIS Express or:
-
-``` bash
-dotnet run
-```
-
-## Step 6 --- Test
-
-Use the local application and Swagger while running in Development.
-
-------------------------------------------------------------------------
-
-# SQLite Database Viewer
-
-The local database file is:
-
-``` text
-DevPortfolio.db
-```
-
-A convenient GUI application for inspecting it is:
-
-**DB Browser for SQLite**
-
-Use it to:
-
--   Open the database
--   Browse tables
--   Inspect records
--   Run SQL queries
--   Check migrations/data
-
-Important:
-
-``` text
-Local DevPortfolio.db
-```
-
-and the production database are separate environments.
-
-------------------------------------------------------------------------
-
-# Git Workflow
-
-Check status:
-
-``` bash
-git status
-```
-
-Review changes:
-
-``` bash
-git diff
-```
-
-Stage:
-
-``` bash
-git add .
-```
-
-Commit:
-
-``` bash
-git commit -m "Describe the change"
-```
-
-Push:
-
-``` bash
-git push origin main
-```
-
-------------------------------------------------------------------------
-
-# Render Deployment
-
-Production hosting is handled by Render.
-
-Deployment flow:
-
-``` text
-Local Development
-       |
-       v
-Build / Test
-       |
-       v
-Git Commit
-       |
-       v
-GitHub main
-       |
-       v
-Render detects commit
-       |
-       v
-Build
-       |
-       v
-Deploy
-       |
-       v
-Live Production
-```
-
-After deployment:
-
-``` text
-Render
-  -> Events / Deployments
-  -> Confirm status = Live
-```
-
-------------------------------------------------------------------------
-
-# Production Domain
-
-Website:
-
-``` text
-https://manishtechnologysolution.com
-```
-
-Admin:
-
-``` text
-https://manishtechnologysolution.com/admin.html
-```
-
-------------------------------------------------------------------------
-
-# Testing Checklist
-
-## Local
-
-``` text
-[ ] Application builds
-[ ] Admin login
-[ ] Invalid admin login rejected
-[ ] Swagger works
-[ ] Visitor contact form
-[ ] Contact saved
-[ ] Contact email sent
-[ ] Admin dashboard loads
-[ ] Conversation opens
-[ ] Close button works
-[ ] Admin reply works
-[ ] Visitor receives reply
-[ ] Visitor can reply
-[ ] Resend webhook works
-[ ] Visitor reply appears in conversation
-[ ] Delete works
-```
-
-## Production
-
-``` text
-[ ] Render deployment is Live
-[ ] Website loads
-[ ] Custom domain works
-[ ] Admin login works
-[ ] Visitor contact works
-[ ] Email delivery works
-[ ] Admin reply works
-[ ] Visitor reply works
-[ ] Webhook works
-[ ] Conversation history works
-[ ] Production CORS works
-[ ] Production secrets are environment-based
-[ ] Swagger is disabled
-```
-
-------------------------------------------------------------------------
-
-# Skills Demonstrated
-
-## Backend
-
--   C#
--   ASP.NET Core Web API
--   REST API development
--   Dependency Injection
--   Entity Framework Core
--   Database migrations
--   SQLite
--   JWT
--   Authentication
--   Authorization
--   Role-based security
--   Password hashing
--   Configuration
--   Environment variables
--   Webhooks
--   External API integration
-
-## Frontend
-
--   HTML5
--   CSS3
--   JavaScript
--   Fetch API
--   DOM manipulation
--   Responsive design
--   Forms
--   Modals
--   Dashboard UI
--   API integration
-
-## DevOps / Cloud
-
--   Git
--   GitHub
--   Render
--   Production deployment
--   Environment configuration
--   Custom domain
--   Deployment troubleshooting
--   Production testing
-
-## Integrations
-
--   Resend API
--   Email delivery
--   Email replies
--   Webhooks
--   Conversation threading
-
-------------------------------------------------------------------------
-
-# Recommended Learning Order
-
-If revisiting this project to understand how it was built, follow this
-order:
-
-``` text
-1. HTML / CSS UI
-       |
-       v
-2. JavaScript / Fetch API
-       |
-       v
-3. ASP.NET Core Controllers
-       |
-       v
-4. DTO / Request / Response Models
-       |
-       v
-5. Entity Framework Core
-       |
-       v
-6. SQLite
-       |
-       v
-7. Authentication
-       |
-       v
-8. JWT Authorization
-       |
-       v
-9. Email Service
-       |
-       v
-10. Resend Integration
-       |
-       v
-11. Webhook Integration
-       |
-       v
-12. Conversation System
-       |
-       v
-13. CORS
-       |
-       v
-14. Environment Variables
-       |
-       v
-15. Git / GitHub
-       |
-       v
-16. Render Deployment
-```
-
-------------------------------------------------------------------------
-
-# Future Improvements
-
-Possible next improvements:
-
-1.  Migrate SQLite to PostgreSQL.
-2.  Add unit tests.
-3.  Add integration tests.
-4.  Add API rate limiting.
-5.  Add structured logging.
-6.  Add global exception handling.
-7.  Add health checks.
-8.  Add webhook signature verification.
-9.  Add pagination.
-10. Add unread/read conversation status.
-11. Add email delivery status tracking.
-12. Add database backup strategy.
-13. Add CI validation before deployment.
-14. Add monitoring and alerts.
-15. Add admin password management.
-16. Add audit logging.
-
-------------------------------------------------------------------------
-
-# Production Notes
-
-### SQLite
-
-SQLite is currently used because it is lightweight and simple.
-
-For a larger production application or important long-term visitor data,
-consider migrating to a managed database such as PostgreSQL.
-
-``` text
-SQLite
-  |
-  v
-PostgreSQL
-```
-
-### Render Free Instance
-
-On a free/limited Render instance, inactivity can cause the service to
-sleep. The first request after inactivity may therefore take longer.
-
-------------------------------------------------------------------------
-
-# Quick Reference
-
-## Technologies
-
-``` text
-C#
-ASP.NET Core
-.NET
-Entity Framework Core
-SQLite
-JWT
-HTML
-CSS
-JavaScript
-Resend
-Git
-GitHub
-Render
-```
-
-## Controllers
-
-``` text
-AuthController
-ContactController
-ProjectsController
-WebhookController
-```
-
-## Services
-
-``` text
-IEmailService
-EmailService
-```
-
-## Models
-
-``` text
-AdminUser
-ContactMessage
-ContactRequest
-EmailReply
-LoginRequest
-LoginResponse
-Project
-```
-
-## Frontend
-
-``` text
-index.html
-admin.html
-```
-
-------------------------------------------------------------------------
-
-# Project Status
-
-Current implementation includes:
-
--   Public portfolio
--   Admin authentication
--   JWT authorization
--   Visitor contact system
--   Admin Dashboard
--   Project management
--   Conversation modal
--   Admin-to-visitor replies
--   Visitor-to-admin replies
--   Resend email integration
--   Resend webhook integration
--   SQLite database
--   Environment-based secrets
--   Production CORS
--   Render deployment
--   Custom domain
--   Production testing
-
-------------------------------------------------------------------------
-
-# Author
-
-**Manish Kumar**
-
-.NET / Full Stack Developer
-
-Core technologies:
-
-``` text
-C#
-ASP.NET Core
-.NET
-Entity Framework Core
-REST APIs
-JWT
-SQLite
-HTML
-CSS
-JavaScript
-Git
-GitHub
-Render
-Resend
-```
-
-------------------------------------------------------------------------
-
-## End
-
-This README is intended as a long-term technical reference for
-understanding, maintaining, deploying and extending the DevPortfolio.API
-project.
