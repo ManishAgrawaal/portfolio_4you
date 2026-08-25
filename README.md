@@ -62,7 +62,7 @@ The portfolio contains data and operations that should not be handled only in br
 - Email delivery & reply processing
 - Webhook handling
 - Production configuration
-# Architecture
+## 3. Architecture
   
                     VISITOR
                        |
