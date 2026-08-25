@@ -21,123 +21,95 @@ It is designed as more than a static portfolio: visitors can submit contact mess
 
 The application is deployed to Render and connected to a custom domain.
 
-Project Overview  :
-=================
-DevPortfolio.API is a full-stack personal portfolio application built
-with ASP.NET Core Web API, C#, Entity Framework Core, SQLite, HTML,
-CSS and JavaScript.
+1. Use Case
 
-The application provides:
-=========================
-Public portfolio UI
+Problem
 
-Visitor contact form
+A personal portfolio normally provides only static information about a developer.
 
-Secure Admin Dashboard
+This project extends that idea into a small production-style application where a visitor can:
 
-JWT authentication and role-based authorization
+Explore the portfolio
 
-SQLite persistence
+View projects
 
-Resend email integration
+Submit a contact message
 
-Resend webhook integration for visitor replies
+Receive an email response
 
-Two-way visitor/admin conversation
+Continue the conversation by replying to email
+
+The administrator can:
+
+Securely log in
+
+View visitor messages
+
+Open complete conversations
+
+Reply directly from the Admin Dashboard
+
+Manage portfolio projects
+
+Receive visitor email replies through a webhook
+
+Example flow:
+
+"A visitor sends a message from my portfolio. I receive the notification, reply from the Admin Dashboard, and if the visitor replies to that email, the reply appears back inside the Admin Dashboard."
+
+2. Why a Backend API?
+
+The portfolio contains data and operations that should not be handled only in browser JavaScript.
+
+The backend is responsible for:
+
+Authentication
+
+Authorization
+
+Database operations
+
+Contact message persistence
 
 Project management
 
-Render production deployment
+Email delivery
 
-Environment-based production secrets
+Email reply processing
 
-✨ Key Features
+Webhook handling
 
-Feature
+Production configuration
 
-Description
+The architecture separates the UI from the application logic:
 
-🔐 Admin Authentication
-
-JWT-based secure administrator login
-
-💬 Visitor Conversations
-
-Complete visitor/admin conversation history
-
-📧 Email Integration
-
-Resend-powered outbound and inbound email
-
-🔄 Webhook Processing
-
-Visitor replies are captured through Resend webhooks
-
-🗃️ Database
-
-Entity Framework Core + SQLite
-
-🎨 Admin UI
-
-Responsive dashboard with conversation modal
-
-🌐 Production
-
-GitHub + Render + custom domain
-
-🛡️ Security
-
-Environment secrets, password hashing and restricted CORS
-
-Technology Stack
-
-Backend
-
-C#
-
-.NET 8 / ASP.NET Core Web API
-
+Browser
+   ↓
+ASP.NET Core REST API
+   ↓
 Entity Framework Core
-
+   ↓
 SQLite
 
-JWT Bearer Authentication
+External email communication is handled separately:
 
-Role-based Authorization
+ASP.NET Core API
+      ↓
+   Resend API
+      ↓
+    Visitor
 
-ASP.NET Core PasswordHasher
+And inbound visitor replies return through:
 
-Swagger / OpenAPI
-
-HttpClient
-
-Dependency Injection
-
-Frontend
-
-HTML5
-
-CSS3
-
-JavaScript
-
-Fetch API
-
-Responsive UI
-
-Admin Dashboard
-
-Conversation Modal
-
-External Services / DevOps
-
-Resend --- email delivery and inbound webhook
-
-GitHub --- source control
-
-Render --- production hosting and deployment
-
-Custom domain --- manishtechnologysolution.com
+Visitor Email
+      ↓
+    Resend
+      ↓
+ WebhookController
+      ↓
+    SQLite
+      ↓
+ Admin Dashboard
 
 🛠️ Core Stack
 
