@@ -62,11 +62,49 @@ The portfolio contains data and operations that should not be handled only in br
 - Email delivery & reply processing
 - Webhook handling
 - Production configuration
-
-**Architecture Separation:**
-**External Email Communication:**
-**Inbound Visitor Replies:**
-## 3. Application Architecture
+# Architecture
+- **Visitor (Blue 🔵):** User entry point.
+- **Frontend / UI (Teal 🟢):** Portfolio aur Admin Dashboard.
+- **Backend / Controllers (Green 🌿):** ASP.NET Core API aur Webhook.
+- **Database (Orange / Yellow 🟠):** SQLite.
+- **External API (Purple 🟣):** Resend Email Service.
+  
+                    VISITOR
+                       |
+                       v
+              +----------------+
+              | Portfolio UI   |
+              | index.html     |
+              +-------+--------+
+                      |
+                 HTTPS / REST
+                      |
+                      v
+              +----------------+
+              | ASP.NET Core   |
+              | Web API        |
+              +---+--------+---+
+                  |        |
+                  |        +------------------+
+                  v                           v
+          +---------------+             +-----------+
+          | SQLite / EF   |             |  Resend   |
+          | Core Database |             | Email API |
+          +---------------+             +-----+-----+
+                                             |
+                                           Webhook
+                                             |
+                                             v
+                                      +--------------+
+                                      | Webhook       |
+                                      | Controller    |
+                                      +------+--------+
+                                             |
+                                             v
+                                          SQLite
+                                             |
+                                             v
+                                      Admin Dashboard
 
 ## 4. Main Application Flow
 
