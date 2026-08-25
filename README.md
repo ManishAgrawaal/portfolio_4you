@@ -15,9 +15,11 @@
   <img src="https://img.shields.io/badge/Render-46E3B7?style=for-the-badge&logo=render&logoColor=black" alt="Render">
 </p>
 
-💡 Project Reference: This README documents the architecture, technologies, development workflow, authentication, email integration, deployment and future roadmap of the project.
+💡DevPortfolio.API is a full-stack personal portfolio application built with ASP.NET Core Web API + C# + Entity Framework Core + SQLite + JWT Authentication + Resend.
 
-DevPortfolio.API --- Project Reference
+It is designed as more than a static portfolio: visitors can submit contact messages, administrators can manage portfolio content and reply to visitors, and visitor replies can be captured back into the application through a Resend webhook.
+
+The application is deployed to Render and connected to a custom domain.
 
 Project Overview  :
 =================
