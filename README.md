@@ -63,11 +63,6 @@ The portfolio contains data and operations that should not be handled only in br
 - Webhook handling
 - Production configuration
 # Architecture
-- **Visitor (Blue 🔵):** User entry point.
-- **Frontend / UI (Teal 🟢):** Portfolio aur Admin Dashboard.
-- **Backend / Controllers (Green 🌿):** ASP.NET Core API aur Webhook.
-- **Database (Orange / Yellow 🟠):** SQLite.
-- **External API (Purple 🟣):** Resend Email Service.
   
                     VISITOR
                        |
