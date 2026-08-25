@@ -19,14 +19,14 @@
 
 DevPortfolio.API --- Project Reference
 
-Project Overview
-
+Project Overview  :
+=================
 DevPortfolio.API is a full-stack personal portfolio application built
 with ASP.NET Core Web API, C#, Entity Framework Core, SQLite, HTML,
 CSS and JavaScript.
 
 The application provides:
-
+=========================
 Public portfolio UI
 
 Visitor contact form
