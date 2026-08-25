@@ -5,7 +5,7 @@
 const API_BASE_URL = "/api";
 
 const CONTACT_API = `${API_BASE_URL}/Contact`;
-const PROJECT_API = `${API_BASE_URL}/Projects`;
+const PROJECT_API = "/data/projects.json";
 
 
 // =====================================================

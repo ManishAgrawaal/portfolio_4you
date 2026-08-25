@@ -1,0 +1,32 @@
+[
+  {
+    "title": "HRMS & Payroll System",
+    "description": "Developed HRMS and payroll modules for employee management, payroll processing, salary computation, tax calculation, and attendance. Built RESTful APIs and optimized SQL Server queries, stored procedures, and database operations. Supported production deployments, defect resolution, and integration with external systems.",
+    "technologies": "ASP.NET Core, C#, RESTful APIs, Microservices, SQL Server"
+  },
+  {
+    "title": "Airline Ticketing & Reservation System",
+    "description": "Developed flight booking, reservation, cancellation, and passenger management modules using ASP.NET Core and C#. Built RESTful APIs and integrated Angular components with backend services for a seamless user experience. Implemented business validations, CRUD operations, and scalable application architecture.",
+    "technologies": "ASP.NET Core, C#, Angular, RESTful APIs, Microservices, SQL Server"
+  },
+  {
+    "title": "Retail E-Commerce & Operations PortalE",
+    "description": "Developed product catalog, order management, inventory, and customer management modules using ASP.NET MVC and Web Forms. Enhanced legacy applications with new MVC features while optimizing SQL Server queries and stored procedures. Handled production support, incident resolution, bug fixes, and deployments using ServiceNow.",
+    "technologies": "ASP.NET Web Forms, ASP.NET MVC, C#, SQL Server, ServiceNow"
+  },
+  {
+    "title": "Online Banking Platform",
+    "description": "Developed secure microservices and RESTful APIs for digital banking solutions using ASP.NET Core and C#. Built responsive Angular components and implemented OAuth2/JWT authentication with role-based authorization. Optimized backend performance, automated Azure DevOps CI/CD deployments, and supported production issue resolution in an Agile environment.",
+    "technologies": "ASP.NET Core, C#, Angular, Microservices, Entity Framework Core, SQL Server, RESTful APIs, OAuth2, JWT, Azure DevOps, CI/CD"
+  },
+  {
+    "title": "Personal Portfolio & Admin Communication System",
+    "description": "It is designed as more than a static portfolio: visitors can submit contact messages, administrators can manage portfolio content and reply to visitors, and visitor replies can be captured back into the application through a Resend webhook.The application is deployed to Render and connected to a custom domain.",
+    "technologies": "ASP.NET Core Web API ,C# ,Entity Framework Core, SQLite ,JWT, Authentication,Resend"
+  },
+  {
+    "title": "GraphLens — Wexa AI",
+    "description": "A recruiter, engineering manager or delivery lead wants to discover people who are relevant to a person based on shared technical skills and shared project experience.Users can then explore relevant connections based on shared skills and projects.",
+    "technologies": "ASP.NET Core Razor Pages, C# ,official Neo4j .NET driver, CognoDB"
+  }
+]
