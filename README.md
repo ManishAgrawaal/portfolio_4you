@@ -1,3 +1,22 @@
+🚀 DevPortfolio.API
+
+<p align="center">
+  <strong>Modern ASP.NET Core Portfolio • Admin Dashboard • Email Conversations • Production Deployment</strong>
+</p>
+
+<p align="center">
+  <img src="https://img.shields.io/badge/.NET-8-512BD4?style=for-the-badge&logo=dotnet&logoColor=white" alt=".NET 8">
+  <img src="https://img.shields.io/badge/C%23-239120?style=for-the-badge&logo=csharp&logoColor=white" alt="C#">
+  <img src="https://img.shields.io/badge/ASP.NET%20Core-512BD4?style=for-the-badge&logo=dotnet&logoColor=white" alt="ASP.NET Core">
+  <img src="https://img.shields.io/badge/SQLite-003B57?style=for-the-badge&logo=sqlite&logoColor=white" alt="SQLite">
+  <img src="https://img.shields.io/badge/JWT-000000?style=for-the-badge&logo=jsonwebtokens&logoColor=white" alt="JWT">
+  <img src="https://img.shields.io/badge/JavaScript-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black" alt="JavaScript">
+  <img src="https://img.shields.io/badge/Resend-000000?style=for-the-badge&logo=resend&logoColor=white" alt="Resend">
+  <img src="https://img.shields.io/badge/Render-46E3B7?style=for-the-badge&logo=render&logoColor=black" alt="Render">
+</p>
+
+💡 Project Reference: This README documents the architecture, technologies, development workflow, authentication, email integration, deployment and future roadmap of the project.
+
 DevPortfolio.API --- Project Reference
 
 Project Overview
@@ -29,6 +48,44 @@ Project management
 Render production deployment
 
 Environment-based production secrets
+
+✨ Key Features
+
+Feature
+
+Description
+
+🔐 Admin Authentication
+
+JWT-based secure administrator login
+
+💬 Visitor Conversations
+
+Complete visitor/admin conversation history
+
+📧 Email Integration
+
+Resend-powered outbound and inbound email
+
+🔄 Webhook Processing
+
+Visitor replies are captured through Resend webhooks
+
+🗃️ Database
+
+Entity Framework Core + SQLite
+
+🎨 Admin UI
+
+Responsive dashboard with conversation modal
+
+🌐 Production
+
+GitHub + Render + custom domain
+
+🛡️ Security
+
+Environment secrets, password hashing and restricted CORS
 
 Technology Stack
 
@@ -80,7 +137,19 @@ Render --- production hosting and deployment
 
 Custom domain --- manishtechnologysolution.com
 
-Architecture
+🛠️ Core Stack
+
+<p>
+  <img src="https://img.shields.io/badge/Backend-ASP.NET%20Core-512BD4?style=flat-square&logo=dotnet&logoColor=white">
+  <img src="https://img.shields.io/badge/Database-SQLite-003B57?style=flat-square&logo=sqlite&logoColor=white">
+  <img src="https://img.shields.io/badge/Auth-JWT-000000?style=flat-square&logo=jsonwebtokens&logoColor=white">
+  <img src="https://img.shields.io/badge/Frontend-HTML%20%7C%20CSS%20%7C%20JS-E34F26?style=flat-square&logo=html5&logoColor=white">
+  <img src="https://img.shields.io/badge/Email-Resend-000000?style=flat-square">
+  <img src="https://img.shields.io/badge/Hosting-Render-46E3B7?style=flat-square&logo=render&logoColor=black">
+  <img src="https://img.shields.io/badge/Source-GitHub-181717?style=flat-square&logo=github&logoColor=white">
+</p>
+
+🏗️ Architecture
 
                     VISITOR
                        |
@@ -119,7 +188,7 @@ Architecture
                                              v
                                       Admin Dashboard
 
-Project Structure
+📁 Project Structure
 
 DevPortfolio.API/
 |
@@ -328,7 +397,7 @@ Reply context
 
 Resend API communication
 
-Database
+🗄️ Database
 
 Current database:
 
@@ -378,7 +447,7 @@ ContactMessage #10
 
 This allows the Admin Dashboard to display the full conversation.
 
-Authentication and Authorization
+🔐 Authentication and Authorization
 
 The admin system uses:
 
@@ -576,7 +645,7 @@ Visitor reply appears
 
 This creates a two-way communication system.
 
-Resend Integration
+📧 Resend Integration
 
 Resend is used for outbound email and inbound webhook processing.
 
@@ -665,7 +734,7 @@ Production  -> Swagger disabled
 This keeps local development convenient while reducing unnecessary
 production exposure.
 
-Local Development
+💻 Local Development
 
 Prerequisites
 
@@ -762,7 +831,7 @@ Push:
 
 git push origin main
 
-Render Deployment
+☁️ Render Deployment
 
 Production hosting is handled by Render.
 
@@ -807,7 +876,7 @@ Admin:
 
 https://manishtechnologysolution.com/admin.html
 
-Testing Checklist
+🧪 Testing Checklist
 
 Local
 
@@ -844,7 +913,7 @@ Production
 [ ] Production secrets are environment-based
 [ ] Swagger is disabled
 
-Skills Demonstrated
+🧠 Skills Demonstrated
 
 Backend
 
@@ -984,7 +1053,7 @@ order:
        v
 16. Render Deployment
 
-Future Improvements
+🔮 Future Improvements
 
 Possible next improvements:
 
@@ -1122,7 +1191,7 @@ Custom domain
 
 Production testing
 
-Author
+👨‍💻 Author
 
 Manish Kumar
 
