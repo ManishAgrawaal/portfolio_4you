@@ -233,10 +233,10 @@ Configure sensitive values in: `Render → Service → Environment → Environme
 
 ## 23. Screenshots
 
-| ![Portfolio Homepage](<img width="1917" height="980" alt="homepage" src="https://github.com/user-attachments/assets/3f5c893d-17d3-4acc-a175-60997b2fce49" />
-| ![Admin Login](<img width="1919" height="994" alt="adminlogin" src="https://github.com/user-attachments/assets/43ae3a97-ead5-4c38-b981-55f8243670cf" />
+|Portfolio Homepage|<img width="958" height="496" alt="homepage" src="https://github.com/user-attachments/assets/3f5c893d-17d3-4acc-a175-60997b2fce49" />
+|Admin Login| <img width="958" height="496" alt="adminlogin" src="https://github.com/user-attachments/assets/43ae3a97-ead5-4c38-b981-55f8243670cf" />
 
-| ![Admin Dashboard](<img width="1905" height="988" alt="adminview" src="https://github.com/user-attachments/assets/587ce65d-2300-488b-bb61-37c8cde3aebd" />
+| Admin Dashboard](<img width="1905" height="988" alt="adminview" src="https://github.com/user-attachments/assets/587ce65d-2300-488b-bb61-37c8cde3aebd" />
 | ![Conversation](<img width="1903" height="909" alt="contactview" src="https://github.com/user-attachments/assets/29d4cc52-7612-4d1d-95b8-13d9c2375b6e" />
 | ![Swagger](<img width="1919" height="982" alt="swagger" src="https://github.com/user-attachments/assets/8092b451-fa77-4c79-8f4f-f5a20b6c4816" />
 
